@@ -33,9 +33,9 @@ const MoviesPage = () => {
         <ul>
           {searchFilms &&
             searchFilms.map(f => (
-              <Link to={`/movies/${f.id}`}>
-                <li key={f.id}>{f.original_title}</li>
-              </Link>
+              <li key={f.id}>
+                <Link to={`/movies/${f.id}`}>{f.original_title}</Link>
+              </li>
             ))}
         </ul>
       </div>

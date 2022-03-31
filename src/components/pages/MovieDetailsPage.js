@@ -1,4 +1,4 @@
-import { NavLink, useParams, useNavigate } from 'react-router-dom';
+import { Outlet, useParams, useNavigate, Link } from 'react-router-dom';
 import '../../index.css';
 
 import { fetchFilmsDetails } from 'components/API/ApiFilms';
@@ -21,34 +21,69 @@ const MovieDetailsPage = () => {
   return (
     <div className="body-container">
       <button
+        style={{ marginBottom: '10px' }}
         onClick={() => {
-          navigate(-1);
+          navigate('/');
         }}
       >
         Go back
       </button>
       {film && (
         <div>
-          <img
-            alt={film.title}
-            src={`${imageSrc}${film.poster_path}`}
-            width={300}
-          />
-          <h2>{film.original_title}</h2>
-          <p>
-            Vote <b>{film.vote_average}</b>{' '}
-          </p>
-          <h3>Overview</h3>
-          <p>{film.overview}</p>
-          <h4>Genres</h4>
-          {film.genres.map((genre, index) => (
-            <p key={index}>{genre.name}</p>
-          ))}
+          <div
+            style={{
+              display: 'flex',
+              maxWidth: '800px',
+            }}
+          >
+            <div>
+              <img
+                alt={film.title}
+                src={`${imageSrc}${film.poster_path}`}
+                width={300}
+              />
+            </div>
+            <div style={{ padding: '0px 20px' }}>
+              <h2>{film.original_title}</h2>
+              <p>
+                Vote <b>{film.vote_average}</b>{' '}
+              </p>
+              <h3>Overview</h3>
+              <p>{film.overview}</p>
+              <h4>Genres</h4>
+              <ul
+                style={{
+                  display: 'flex',
+                  listStyle: 'none',
+                  marginRight: '10px',
+                  padding: '0',
+                }}
+              >
+                {film.genres.map((genre, index) => (
+                  <li
+                    key={index}
+                    style={{
+                      marginRight: '10px',
+                    }}
+                  >
+                    {genre.name}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
 
-          <div>
+          <div style={{}}>
             <h5>Additional Information</h5>
-            {/* <NavLink></NavLink> */}
-            {/* <NavLink></NavLink> */}
+            <ul>
+              <li key="cast">
+                <Link to={'cast'}>Cast:</Link>
+              </li>
+              <li key="review">
+                <Link to={'review'}>Review:</Link>
+              </li>
+            </ul>
+            <Outlet />
           </div>
         </div>
       )}

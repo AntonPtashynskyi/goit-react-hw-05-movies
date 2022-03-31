@@ -1,5 +1,3 @@
-import { toHaveErrorMessage } from '@testing-library/jest-dom/dist/matchers';
-
 const API_KEY = '2a16c6401fc5b60e749d1dab2b58b588';
 const BASE_URL = 'https://api.themoviedb.org/3/';
 
@@ -33,7 +31,6 @@ const fetchSearchMovies = async (searchQuery = '') => {
         return r.json();
       })
       .then(d => {
-        console.log(d);
         return d.results;
       });
   } catch (error) {
@@ -51,14 +48,31 @@ const fetchFilmsDetails = async movieId => {
       }
       return r.json();
     });
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const fetchCastDetails = async movieId => {
   try {
     return await fetch(
-      `${BASE_URL}}movie/${movieId}/credits?api_key=${API_KEY}&language=en-US`
+      `${BASE_URL}movie/${movieId}/credits?api_key=${API_KEY}&language=en-US`
     ).then(r => {
+      if (!r.ok) {
+        throw new Error(r.status);
+      }
+      return r.json();
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const fetchReviews = async movieId => {
+  try {
+    return await fetch(`
+    ${BASE_URL}movie/${movieId}/reviews?api_key=${API_KEY}&language=en-US
+    `).then(r => {
       if (!r.ok) {
         throw new Error(r.status);
       }
@@ -74,4 +88,5 @@ export {
   fetchSearchMovies,
   fetchFilmsDetails,
   fetchCastDetails,
+  fetchReviews,
 };

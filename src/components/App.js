@@ -4,21 +4,28 @@ import { Routes, Route } from 'react-router-dom';
 import { Container } from './container/Container';
 import { HomePage } from './pages/HomePage';
 import { MoviesPage } from './pages/MoviesPage';
-import { NotFound } from './pages/NotFoundPage';
 import { MovieDetailsPage } from './pages/MovieDetailsPage';
+import { CastPage } from './pages/CastPage';
+import { ReviewPage } from './pages/ReviewsPage';
 
 const App = () => {
   return (
     <>
-      <Container title="Good">
+      <Container mainStyle="container header">
         <NavigationPages />
       </Container>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/movies" element={<MoviesPage />} />
-        <Route path="/movies/:movieId" element={<MovieDetailsPage />} />
-        <Route path="/*" element={<NotFound />} />
-      </Routes>
+      <Container mainStyle="container">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/movies" element={<MoviesPage />} />
+          <Route path="/movies/:movieId/*" element={<MovieDetailsPage />}>
+            <Route path="cast" element={<CastPage />} />
+            <Route path="review" element={<ReviewPage />} />
+          </Route>
+
+          <Route path="/*" element={<HomePage />} />
+        </Routes>
+      </Container>
     </>
   );
 };

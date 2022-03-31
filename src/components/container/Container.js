@@ -1,8 +1,8 @@
 import '../../index.css';
 
-const Container = ({ children }) => {
+const Container = ({ mainStyle, children }) => {
   return (
-    <div className="container">
+    <div className={mainStyle}>
       <div>{children}</div>
     </div>
   );
