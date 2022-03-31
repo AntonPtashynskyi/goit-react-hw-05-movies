@@ -13,3 +13,25 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.container {
+  padding: 20px 20px;
+  background-color: rgb(161, 224, 224);
+  box-shadow: 2px 2px 4px rgb(173, 173, 173);
+}
+
+.container-child {
+  margin-right: 10px;
+  text-decoration: none;
+  font-weight: 500;
+  color: black;
+}
+
+.container-child.active {
+  color: rgb(145, 27, 27);
+  font-weight: 900;
+}
+
+.body-container {
+  padding: 20px 20px;
+}
