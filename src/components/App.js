@@ -1,12 +1,16 @@
-import { NavigationPages } from './pages/NavigationPages';
-import { Routes, Route } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
+import { NavigationPages } from './pages/NavigationPages';
 import { Container } from './container/Container';
-import { HomePage } from './pages/HomePage';
+
 import { MoviesPage } from './pages/MoviesPage';
 import { MovieDetailsPage } from './pages/MovieDetailsPage';
 import { CastPage } from './pages/CastPage';
 import { ReviewPage } from './pages/ReviewsPage';
+
+// import { HomePage } from './pages/HomePage';
+const HomePage = lazy(() => import('./pages/HomePage.js'));
 
 const App = () => {
   return (
@@ -15,16 +19,17 @@ const App = () => {
         <NavigationPages />
       </Container>
       <Container mainStyle="container">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/movies" element={<MoviesPage />} />
-          <Route path="/movies/:movieId/*" element={<MovieDetailsPage />}>
-            <Route path="cast" element={<CastPage />} />
-            <Route path="review" element={<ReviewPage />} />
-          </Route>
-
-          <Route path="/*" element={<HomePage />} />
-        </Routes>
+        <Suspense fallback={<h1>Loading...</h1>}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/movies" element={<MoviesPage />} />
+            <Route path="/movies/:movieId/*" element={<MovieDetailsPage />}>
+              <Route path="cast" element={<CastPage />} />
+              <Route path="review" element={<ReviewPage />} />
+            </Route>
+            <Route path="/*" element={<Navigate to={'/'} replace={true} />} />
+          </Routes>
+        </Suspense>
       </Container>
     </>
   );

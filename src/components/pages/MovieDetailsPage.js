@@ -1,4 +1,4 @@
-import { Outlet, useParams, useNavigate, Link } from 'react-router-dom';
+import { Outlet, useParams, useNavigate, NavLink } from 'react-router-dom';
 import '../../index.css';
 
 import { fetchFilmsDetails } from 'components/API/ApiFilms';
@@ -23,7 +23,7 @@ const MovieDetailsPage = () => {
       <button
         style={{ marginBottom: '10px' }}
         onClick={() => {
-          navigate('/');
+          navigate(-1);
         }}
       >
         Go back
@@ -77,10 +77,14 @@ const MovieDetailsPage = () => {
             <h5>Additional Information</h5>
             <ul>
               <li key="cast">
-                <Link to={'cast'}>Cast:</Link>
+                <NavLink to={'cast'} replace={true}>
+                  Cast:
+                </NavLink>
               </li>
               <li key="review">
-                <Link to={'review'}>Review:</Link>
+                <NavLink to={'review'} replace={true}>
+                  Review:
+                </NavLink>
               </li>
             </ul>
             <Outlet />

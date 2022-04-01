@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import '../../index.css';
 
-const HomePage = () => {
+export default function HomePage() {
   const [films, setFilms] = useState([]);
 
   useEffect(() => {
@@ -23,6 +23,9 @@ const HomePage = () => {
       </ul>
     </div>
   );
-};
+}
 
-export { HomePage };
+// export { HomePage };
+
+// export const HomePage = () => {
+//   const [films, setFilms] = useState([]);
