@@ -1,4 +1,10 @@
-import { Outlet, useParams, useNavigate, NavLink } from 'react-router-dom';
+import {
+  Outlet,
+  useParams,
+  useNavigate,
+  NavLink,
+  useLocation,
+} from 'react-router-dom';
 import '../../index.css';
 
 import { fetchFilmsDetails } from 'components/API/ApiFilms';

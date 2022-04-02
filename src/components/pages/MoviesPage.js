@@ -6,23 +6,30 @@ import { fetchSearchMovies } from 'components/API/ApiFilms';
 
 const MoviesPage = () => {
   const [searchFilms, setSearchFilms] = useState([]);
+  const [page, setPage] = useState(1);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const postQuery = searchParams.get('post') || '';
   const [search, setSearch] = useState(postQuery);
 
   useEffect(() => {
-    if (postQuery) {
-      fetchSearchMovies(postQuery).then(d => setSearchFilms(d));
+    if (!postQuery) {
+      setSearchFilms([]);
+      setSearch('');
     }
-  }, [postQuery]);
+
+    if (postQuery) {
+      fetchSearchMovies(postQuery, page).then(data =>
+        setSearchFilms(prevItem => [...prevItem, ...data])
+      );
+    }
+  }, [page, postQuery]);
 
   const handleSubmit = e => {
     e.preventDefault();
 
     const query = e.target.filmQuery.value;
-
-    setSearchParams(postQuery);
+    setSearch(query);
     setSearchParams({ post: query });
   };
 
@@ -49,6 +56,11 @@ const MoviesPage = () => {
               </li>
             ))}
         </ul>
+        {searchFilms.length > 0 ? (
+          <button onClick={() => setPage(page => page + 1)}>Load more</button>
+        ) : (
+          <div>No results</div>
+        )}
       </div>
     </div>
   );

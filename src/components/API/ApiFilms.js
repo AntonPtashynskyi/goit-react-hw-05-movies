@@ -18,10 +18,10 @@ const fetchPopularFilms = async () => {
   }
 };
 
-const fetchSearchMovies = async (searchQuery = '') => {
+const fetchSearchMovies = async (searchQuery = '', page) => {
   try {
     return await fetch(`
-    ${BASE_URL}search/movie?api_key=${API_KEY}&language=en-US&query=${searchQuery}&page=1&include_adult=false
+    ${BASE_URL}search/movie?api_key=${API_KEY}&language=en-US&query=${searchQuery}&page=${page}&include_adult=false
     `)
       .then(r => {
         if (!r.ok) {
