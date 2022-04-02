@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams, useLocation } from 'react-router-dom';
 import '../../index.css';
 
 import { fetchSearchMovies } from 'components/API/ApiFilms';
 
 const MoviesPage = () => {
+  const location = useLocation();
   const [searchFilms, setSearchFilms] = useState([]);
   const [page, setPage] = useState(1);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -33,6 +34,8 @@ const MoviesPage = () => {
     setSearchParams({ post: query });
   };
 
+  // state={{ from: location }}
+
   return (
     <div className="body-container">
       <form onSubmit={handleSubmit}>
@@ -52,7 +55,9 @@ const MoviesPage = () => {
           {searchFilms &&
             searchFilms.map(f => (
               <li key={f.id}>
-                <Link to={`/movies/${f.id}`}>{f.original_title}</Link>
+                <Link to={`/movies/${f.id}`} state={{ from: location }}>
+                  {f.original_title}
+                </Link>
               </li>
             ))}
         </ul>
