@@ -1,4 +1,3 @@
-import slugify from 'slugify';
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams, useLocation } from 'react-router-dom';
 import '../../index.css';
