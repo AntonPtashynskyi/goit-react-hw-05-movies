@@ -1,8 +1,10 @@
+import slugify from 'slugify';
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams, useLocation } from 'react-router-dom';
 import '../../index.css';
 
 import { fetchSearchMovies } from 'components/API/ApiFilms';
+import { makeSlug } from './HomePage';
 
 const MoviesPage = () => {
   const location = useLocation();
@@ -55,7 +57,10 @@ const MoviesPage = () => {
           {searchFilms &&
             searchFilms.map(f => (
               <li key={f.id}>
-                <Link to={`/movies/${f.id}`} state={{ from: location }}>
+                <Link
+                  to={`/movies/${makeSlug(`${f.original_title} ${f.id}`)}`}
+                  state={{ from: location }}
+                >
                   {f.original_title}
                 </Link>
               </li>

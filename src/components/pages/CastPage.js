@@ -8,7 +8,8 @@ const imageSrc = 'https://image.tmdb.org/t/p/w500';
 
 const CastPage = () => {
   const [casts, setCasts] = useState();
-  const { movieId } = useParams();
+  const { slug } = useParams();
+  const movieId = slug.match(/[a-zA-Z0-9]+$/)[0];
 
   useEffect(() => {
     if (!movieId) {

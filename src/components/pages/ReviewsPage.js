@@ -4,8 +4,9 @@ import { useEffect, useState } from 'react';
 import { fetchReviews } from 'components/API/ApiFilms';
 
 const ReviewPage = () => {
-  const { movieId } = useParams();
+  const { slug } = useParams();
   const [reviews, setReviews] = useState([]);
+  const movieId = slug.match(/[a-zA-Z0-9]+$/)[0];
 
   useEffect(() => {
     if (!movieId) {

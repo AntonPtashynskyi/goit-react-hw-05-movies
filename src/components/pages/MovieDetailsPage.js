@@ -1,10 +1,4 @@
-import {
-  Outlet,
-  useParams,
-  useNavigate,
-  NavLink,
-  useLocation,
-} from 'react-router-dom';
+import { Outlet, useParams, useNavigate, NavLink } from 'react-router-dom';
 import '../../index.css';
 
 import { fetchFilmsDetails } from 'components/API/ApiFilms';
@@ -13,12 +7,9 @@ import { useState, useEffect } from 'react';
 const imageSrc = 'https://image.tmdb.org/t/p/w500';
 
 const MovieDetailsPage = () => {
-  const location = useLocation();
-  const [fromPage, setFromPage] = useState(location.state);
+  const { slug } = useParams();
+  const movieId = slug.match(/[a-zA-Z0-9]+$/)[0];
 
-  console.log(fromPage);
-
-  const { movieId } = useParams();
   const [film, setFilm] = useState(null);
   const navigate = useNavigate();
 
@@ -34,7 +25,7 @@ const MovieDetailsPage = () => {
       <button
         style={{ marginBottom: '10px' }}
         onClick={() => {
-          fromPage ? navigate(-1) : navigate('/movies');
+          navigate(-1);
         }}
       >
         Go back
